@@ -28,6 +28,15 @@
   border-radius:20px;
 }
 
+/* Default (Desktop & large screens) */
 .image1{
   height:80vh;
+ 
+}
+
+/* Mobile view only */
+@media (max-width: 768px) {
+  .image1{
+    height:45vh;   /* adjust: 40–50vh looks best */
+  }
 }
