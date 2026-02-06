@@ -37,7 +37,7 @@
 /* Mobile view only */
 @media (max-width: 768px) {
   .image1{
-    height:30vh;   /* adjust: 40–50vh looks best */
+    height:30vh;   
   }
 }
 
@@ -224,3 +224,9 @@
         .section-padding {
             padding: 5rem 0;
         }
+
+@media (max-width: 768px) {
+  .m1{ 
+    margin:15px;
+  }
+}
