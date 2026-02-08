@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Site Visit - BMR Plots</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+        .visit-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .visit-header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+        }
+        
+        .visit-form {
+            padding: 2.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .required-star {
+            color: #dc3545;
+        }
+        
+        .flatpickr-input {
+            background-color: white;
+        }
+        
+        .calendar-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, #e74bc5, #9c27b0);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 75, 197, 0.4);
+        }
+        
+        .whatsapp-info {
+            background-color: #f0f9ff;
+            border-left: 4px solid #25D366;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+        }
+        
+        .whatsapp-icon {
+            color: #25D366;
+            font-size: 1.5rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .step-indicator::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50px;
+            right: 50px;
+            height: 2px;
+            background-color: #e9ecef;
+            z-index: 1;
+        }
+        
+        .step {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            background: white;
+            padding: 0 10px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 600;
+        }
+        
+        .step.active .step-number {
+            background-color: #e74bc5;
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background-color: #198754;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation (same as your main page) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">BMR Plots</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html"><i class="bi bi-house-door me-1"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="schedule-visit.html"><i class="bi bi-calendar-check me-1"></i>Schedule Visit</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Schedule Visit Container -->
+    <div class="container my-5">
+        <div class="visit-container">
+            <!-- Header -->
+            <div class="visit-header">
+                <h1 class="display-6"><i class="bi bi-calendar-date me-2"></i>Schedule Site Visit</h1>
+                <p class="lead mb-0">Book your visit to our premium plots and experience luxury living</p>
+            </div>
+            
+            <!-- Step Indicator -->
+            <div class="step-indicator px-4 pt-4">
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Details</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Date & Time</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Confirmation</div>
+                </div>
+            </div>
+
+            <!-- Main Form -->
+            <div class="visit-form">
+                <form id="siteVisitForm">
+                    <div class="row">
+                        <!-- Site Selection -->
+                        <div class="col-md-6 mb-4">
+                            <label for="siteName" class="form-label">
+                                Select Site <span class="required-star">*</span>
+                            </label>
+                            <select class="form-select" id="siteName" required>
+                                <option value="" selected disabled>Choose a site...</option>
+                                <option value="BMR Premium Plots, Bangalore">BMR Premium Plots, Bangalore</option>
+                                <option value="BMR Garden City, Chennai">BMR Garden City, Chennai</option>
+                                <option value="BMR Green Valley, Hyderabad">BMR Green Valley, Hyderabad</option>
+                                <option value="BMR Lake View, Pune">BMR Lake View, Pune</option>
+                                <option value="BMR Hill County, Mumbai">BMR Hill County, Mumbai</option>
+                                <option value="BMR Skyline, Delhi">BMR Skyline, Delhi</option>
+                            </select>
+                        </div>
+
+                        <!-- Visit Date -->
+                        <div class="col-md-6 mb-4">
+                            <label for="visitDate" class="form-label">
+                                Preferred Date <span class="required-star">*</span>
+                            </label>
+                            <div class="position-relative">
+                                <input type="text" class="form-control flatpickr-input" id="visitDate" placeholder="Select date" required readonly>
+                                <i class="bi bi-calendar calendar-icon"></i>
+                            </div>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="col-md-6 mb-4">
+                            <label for="userName" class="form-label">
+                                Your Name <span class="required-star">*</span>
+                            </label>
+                            <input type="text" class="form-control" id="userName" placeholder="Enter your full name" required>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="col-md-6 mb-4">
+                            <label for="phoneNumber" class="form-label">
+                                Phone Number <span class="required-star">*</span>
+                            </label>
+                            <div class="input-group">
+                                <span class="input-group-text">+91</span>
+                                <input type="tel" class="form-control" id="phoneNumber" 
+                                       placeholder="Enter 10-digit mobile number" 
+                                       pattern="[0-9]{10}" 
+                                       maxlength="10"
+                                       required>
+                            </div>
+                            <small class="form-text text-muted">We'll send WhatsApp confirmation to this number</small>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="col-md-12 mb-4">
+                            <label for="userEmail" class="form-label">
+                                Email Address (Optional)
+                            </label>
+                            <input type="email" class="form-control" id="userEmail" placeholder="you@example.com">
+                        </div>
+
+                        <!-- Additional Notes -->
+                        <div class="col-md-12 mb-4">
+                            <label for="additionalNotes" class="form-label">
+                                Additional Notes
+                            </label>
+                            <textarea class="form-control" id="additionalNotes" rows="3" placeholder="Any specific requirements or questions..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Info -->
+                    <div class="whatsapp-info">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-whatsapp whatsapp-icon me-3"></i>
+                            <div>
+                                <h6 class="mb-1">WhatsApp Confirmation</h6>
+                                <p class="mb-0">After submission, you'll receive a WhatsApp confirmation message with your visit details.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        <a href="index.html" class="btn btn-outline-secondary me-md-2">
+                            <i class="bi bi-arrow-left me-1"></i>Back to Home
+                        </a>
+                        <button type="submit" class="btn btn-submit">
+                            <i class="bi bi-whatsapp me-2"></i>Schedule & Send WhatsApp
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title" id="successModalLabel">
+                            <i class="bi bi-check-circle me-2"></i>Visit Scheduled Successfully!
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="mb-4">
+                            <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        <h4 class="mb-3">Thank You!</h4>
+                        <p>Your site visit has been scheduled successfully.</p>
+                        <p>A WhatsApp confirmation has been sent to your mobile number.</p>
+                        <div class="alert alert-info mt-3">
+                            <i class="bi bi-info-circle me-2"></i>
+                            If you don't receive the WhatsApp message, please contact us at <strong>908042836</strong>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-center">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                            <i class="bi bi-house-door me-1"></i>Back to Home
+                        </button>
+                        <a href="schedule-visit.html" class="btn btn-outline-primary">
+                            <i class="bi bi-calendar-plus me-1"></i>Schedule Another Visit
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize date picker
+        flatpickr("#visitDate", {
+            minDate: "today",
+            dateFormat: "d-m-Y",
+            disable: [
+                function(date) {
+                    // Disable weekends
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ],
+            locale: {
+                firstDayOfWeek: 1 // Start week on Monday
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('siteVisitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const siteName = document.getElementById('siteName').value;
+            const visitDate = document.getElementById('visitDate').value;
+            const userName = document.getElementById('userName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const userEmail = document.getElementById('userEmail').value || 'Not provided';
+            const additionalNotes = document.getElementById('additionalNotes').value || 'None';
+            
+            // Create WhatsApp message
+            const whatsappMessage = encodeURIComponent(
+`Welcome to BMR Plots! Thank you for choosing us.
+
+📋 *VISIT CONFIRMATION*
+━━━━━━━━━━━━━━━━━━
+👤 *Name:* ${userName}
+📱 *Phone:* +91${phoneNumber}
+📧 *Email:* ${userEmail}
+📍 *Site:* ${siteName}
+📅 *Visit Date:* ${visitDate}
+📝 *Notes:* ${additionalNotes}
+
+We have scheduled your site visit on ${visitDate}. Our representative will contact you before the visit.
+
+If you have any further information or need to reschedule, please contact us on this number: 908042836
+
+Thank you for choosing BMR Plots! 🏡`
+            );
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/91${phoneNumber}?text=${whatsappMessage}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+            
+            // Reset form
+            document.getElementById('siteVisitForm').reset();
+            
+            // Log the submission (you can send this to your server)
+            console.log('Site visit scheduled:', {
+                siteName,
+                visitDate,
+                userName,
+                phoneNumber,
+                userEmail,
+                additionalNotes,
+                timestamp: new Date().toISOString()
+            });
+            
+            // You can also send this data to your backend
+            // fetch('/api/schedule-visit', {
+            //     method: 'POST',
+            //     headers: {'Content-Type': 'application/json'},
+            //     body: JSON.stringify({ siteName, visitDate, userName, phoneNumber, userEmail, additionalNotes })
+            // });
+        });
+
+        // Phone number validation
+        document.getElementById('phoneNumber').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+        });
+
+        // Update step indicator on form interaction
+        const formInputs = document.querySelectorAll('#siteVisitForm input, #siteVisitForm select');
+        formInputs.forEach(input => {
+            input.addEventListener('change', updateStepIndicator);
+        });
+
+        function updateStepIndicator() {
+            const steps = document.querySelectorAll('.step');
+            
+            // Check if step 1 (Details) is complete
+            const siteName = document.getElementById('siteName').value;
+            const userName = document.getElementById('userName').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            if (siteName && userName && phoneNumber) {
+                steps[0].classList.add('completed');
+                steps[1].classList.add('active');
+            }
+            
+            // Check if step 2 (Date) is complete
+            const visitDate = document.getElementById('visitDate').value;
+            if (visitDate) {
+                steps[1].classList.add('completed');
+                steps[2].classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
