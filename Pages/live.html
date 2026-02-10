@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Projects - BMR Plots</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #eef0f7;
+            --secondary-color: #e74bc5;
+            --accent-color: #9c27b0;
+            --fourth-color:#5ee286; 
+            --fifth-color:#8a451d;
+            --sixth-color:#1ba500;
+          
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .projects-header {
+            background: linear-gradient(rgba(22, 33, 62, 0.9), rgba(22, 33, 62, 0.95)), url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1073&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 50px;
+        }
+        
+        .project-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            height: 100%;
+            border: none;
+            position: relative;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .project-card img {
+            height: 200px;
+            object-fit: cover;
+            width: 100%;
+        }
+        
+        .project-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .status-ongoing {
+            background-color: #ffc107;
+            color: #000;
+        }
+        
+        .status-completed {
+            background-color: #198754;
+            color: white;
+        }
+        
+        .status-upcoming {
+            background-color: #0dcaf0;
+            color: white;
+        }
+        
+        .project-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .project-card .card-title {
+            color: var(--fifth-color);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+        
+        .project-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        
+        .project-features li {
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .project-features i {
+            color: var(--secondary-color);
+            margin-right: 8px;
+            width: 20px;
+        }
+        
+        .btn-view-details {
+            background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+            border: none;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-view-details:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 75, 197, 0.3);
+            color: white;
+        }
+        
+        .project-location {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .project-location i {
+            color: var(--secondary-color);
+            margin-right: 5px;
+        }
+        
+        .projects-filter {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .filter-btn {
+            background-color: #f8f9fa;
+            border: 2px solid #dee2e6;
+            color: #495057;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 80px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .project-price {
+            color: var( --sixth-color);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+        
+        /* Project Detail Page Styles */
+        .project-detail-header {
+            background: linear-gradient(rgba(22, 33, 62, 0.9), rgba(22, 33, 62, 0.95));
+            color: white;
+            padding: 80px 0 40px;
+        }
+        
+        .project-gallery {
+            margin-bottom: 40px;
+        }
+        
+        .project-main-image {
+            height: 400px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .project-thumbnails img {
+            height: 100px;
+            object-fit: cover;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .project-thumbnails img:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+        
+        .project-highlights {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .highlight-item {
+            margin-bottom: 20px;
+        }
+        
+        .highlight-icon {
+            width: 60px;
+            height: 60px;
+            background-color: rgba(231, 75, 197, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-right: 15px;
+        }
+        
+        .contact-sidebar {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 30px;
+        }
+        
+        .back-to-projects {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .back-to-projects:hover {
+            color: var(--accent-color);
+        }
+
+        .Header-text{
+            font-weight:bold;
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black sticky-top shadow-sm">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">
+            <div class="Header-text">
+                <i class="fas fa-home me-2"></i>BMR <span style="color: var(--fourth-color);" >Plots</span>
+            </div>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size:20px; font-weight:bold;" href="../index.html">Home</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" style="font-size:20px; font-weight:bold;" href="contact.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Projects Header -->
+    <section class="projects-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-5 fw-bold mb-3">Our Premium Projects</h1>
+                    <p class="lead mb-0">Explore our exclusive residential plots and luxury developments across Trichy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Filter -->
+    <div class="container">
+        <div class="projects-filter">
+            <h5 class="mb-3">Filter by Status:</h5>
+            <div class="d-flex flex-wrap">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="ongoing">Ongoing</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+                <button class="filter-btn" data-filter="upcoming">Upcoming</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <section class="container mb-5 ">
+        <div class="row g-4" id="projectsGrid">
+            <!-- Projects will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h4 class="mb-4">
+                        <i class="bi bi-house-door me-2"></i>BMR<span>  Plots</span>
+                    </h4>
+                    <p>Creating premium residential spaces in Trichy with a commitment to quality and customer satisfaction.</p>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="mb-4">Quick Links</h5>
+                    <div class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="projects.html">Projects</a>
+                        <a href="schedule.html">Schedule Visit</a>
+                        <a href="contact.html">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="mb-4">Contact Info</h5>
+                    <p><i class="bi bi-geo-alt me-2"></i> Trichy, Tamil Nadu</p>
+                    <p><i class="bi bi-telephone me-2"></i> 908042836</p>
+                    <p><i class="bi bi-envelope me-2"></i> info@bmrplots.com</p>
+                </div>
+            </div>
+            <div class="row pt-4 border-top">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0">&copy; 2024 BMR Plots. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Projects Data
+        const projects = [
+            {
+                id: 1,
+                name: "RAJAKAVI NAGAR",
+                location: "Trichy East",
+                description: "Premium residential plots with all modern amenities and 24/7 security.",
+                status: "ongoing",
+                price: "@ Low Budget",
+                features: ["24/7 Security", "Olymic Academy", "Sipcot", "Rainwater Harvesting", "Underground Drainage"],
+                image: "https://dynamic.realestateindia.com/prop_images/2650204/1336971_1-350x350.jpg",
+                totalPlots: 150,
+                availablePlots: 45,
+                page: "project-premium.html"
+            },
+            {
+                id: 2,
+                name: "BMR Garden City",
+                location: "Trichy West",
+                description: "Luxury plots surrounded by greenery with premium amenities.",
+                status: "completed",
+                price: "From ₹20 Lakhs",
+                features: ["Landscaped Gardens", "Swimming Pool", "Jogging Track", "Shopping Complex", "Power Backup"],
+                image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                totalPlots: 200,
+                availablePlots: 0,
+                page: "project-garden.html"
+            },
+            {
+                id: 3,
+                name: "BMR Green Valley",
+                location: "Trichy South",
+                description: "Eco-friendly plots with sustainable living features.",
+                status: "upcoming",
+                price: "From ₹12 Lakhs",
+                features: ["Solar Lighting", "Organic Farming", "Waste Management", "EV Charging", "Community Hall"],
+                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                totalPlots: 120,
+                availablePlots: 120,
+                page: "project-greenvalley.html"
+            },
+            {
+                id: 4,
+                name: "BMR Lake View",
+                location: "Trichy North",
+                description: "Premium plots with scenic lake views and waterfront amenities.",
+                status: "ongoing",
+                price: "From ₹25 Lakhs",
+                features: ["Lake View", "Boating Club", "Waterfront Park", "Cafeteria", "Gymnasium"],
+                image: "https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=1065&q=80",
+                totalPlots: 80,
+                availablePlots: 25,
+                page: "project-lakeview.html"
+            },
+            {
+                id: 5,
+                name: "BMR Hill County",
+                location: "Trichy Hills",
+                description: "Exclusive hilltop plots with panoramic city views.",
+                status: "upcoming",
+                price: "From ₹30 Lakhs",
+                features: ["Hill Top Views", "Private Roads", "Helipad", "Multi-cuisine Restaurant", "Spa & Wellness"],
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                totalPlots: 50,
+                availablePlots: 50,
+                page: "project-hillcounty.html"
+            },
+            {
+                id: 6,
+                name: "BMR Skyline",
+                location: "Trichy Central",
+                description: "Modern plots in the heart of the city with commercial potential.",
+                status: "completed",
+                price: "From ₹35 Lakhs",
+                features: ["Prime Location", "Commercial Zone", "Multi-level Parking", "Shopping Mall", "Business Center"],
+                image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80",
+                totalPlots: 100,
+                availablePlots: 0,
+                page: "project-skyline.html"
+            },
+
+         
+
+        ];
+
+        // Load projects on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProjects('all');
+            setupFilterButtons();
+        });
+
+        // Load projects function
+        function loadProjects(filter) {
+            const container = document.getElementById('projectsGrid');
+            let html = '';
+            
+            const filteredProjects = filter === 'all' 
+                ? projects 
+                : projects.filter(project => project.status === filter);
+            
+            filteredProjects.forEach(project => {
+                const statusClass = `status-${project.status}`;
+                const statusText = project.status.charAt(0).toUpperCase() + project.status.slice(1);
+                
+                html += `
+                <div class="col-md-6 col-lg-4 project-item" data-status="${project.status}">
+                    <div class="project-card">
+                        <img src="${project.image}" alt="${project.name}">
+                        <span class="project-badge ${statusClass}">${statusText}</span>
+                        <div class="card-body">
+                            <h5 class="card-title">${project.name}</h5>
+                            <div class="project-location">
+                                <i class="bi bi-geo-alt"></i> ${project.location}
+                            </div>
+                            <p class="card-text">${project.description}</p>
+                            <ul class="project-features">
+                                ${project.features.slice(0, 3).map(feature => `<li><i class="bi bi-check-circle"></i> ${feature}</li>`).join('')}
+                            </ul>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="project-price">${project.price}</div>
+                                <a href="${project.page}" class="btn btn-view-details">
+                                    View Details <i class="bi bi-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        // Setup filter buttons
+        function setupFilterButtons() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Load projects with selected filter
+                    const filter = this.getAttribute('data-filter');
+                    loadProjects(filter);
+                });
+            });
+        }
+    </script>
+
+    <!-- Bootstrap JS (required for navbar toggle) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+</body>
+</html>
