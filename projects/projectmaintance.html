@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Construction | BMR Group</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-gold: #c9a86b;
+            --dark-bg: #121212;
+            --card-gray: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(201, 168, 107, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .floating-shape {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(201,168,107,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            bottom: -150px;
+            left: -150px;
+            animation-delay: -10s;
+            width: 400px;
+            height: 400px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+        }
+
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+        }
+
+        /* Back Button */
+        .back-button-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(201, 168, 107, 0.3);
+            border-radius: 50px;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--dark-bg);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-3px);
+        }
+
+        /* Logo/Brand Section */
+        .brand-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .brand-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .brand-logo span {
+            color: var(--primary-gold);
+        }
+
+        .brand-tagline {
+            color: var(--text-muted);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Main Content Card */
+        .content-card {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 168, 107, 0.2);
+            border-radius: 30px;
+            padding: 4rem 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.3s both;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Loading Spinner Animation */
+        .loading-spinner {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid transparent;
+            border-top-color: var(--primary-gold);
+            border-bottom-color: var(--primary-gold);
+            animation: spin 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        .spinner-ring:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 10px;
+            left: 10px;
+            border-top-color: #e6c27a;
+            border-bottom-color: #e6c27a;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: spin 2s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite reverse;
+        }
+
+        .spinner-ring:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            top: 20px;
+            left: 20px;
+            border-top-color: #ffd700;
+            border-bottom-color: #ffd700;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            animation: spin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .main-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .main-title span {
+            color: var(--primary-gold);
+            border-bottom: 2px solid var(--primary-gold);
+            padding-bottom: 5px;
+        }
+
+        .description {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.8;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress {
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-gold) 0%, #e6c27a 50%, var(--primary-gold) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+            width: 75%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Contact Options */
+        .contact-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(201, 168, 107, 0.3);
+            border-radius: 50px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: var(--primary-gold);
+            border-color: var(--primary-gold);
+            color: var(--dark-bg);
+            transform: translateY(-3px);
+        }
+
+        .contact-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Trust Badges */
+        .trust-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .badge-item i {
+            color: var(--primary-gold);
+        }
+
+        /* Navigation Links */
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-gold);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .back-button-container {
+                top: 10px;
+                left: 10px;
+            }
+            
+            .back-btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .brand-logo {
+                font-size: 2.5rem;
+            }
+
+            .main-title {
+                font-size: 2.2rem;
+            }
+
+            .description {
+                font-size: 1rem;
+                padding: 0 1rem;
+            }
+
+            .contact-options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .badges {
+                gap: 1rem;
+            }
+
+            .badge-item {
+                font-size: 0.8rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-pattern"></div>
+    <div class="floating-shape shape-1"></div>
+    <div class="floating-shape shape-2"></div>
+
+    <!-- Back Button -->
+    <div class="back-button-container">
+        <button onclick="goBack()" class="back-btn">
+            <i class="bi bi-arrow-left"></i>
+            <span>Go Back</span>
+        </button>
+    </div>
+
+    <div class="main-container">
+        <!-- Brand Section -->
+        <div class="brand-section">
+            <div class="brand-logo">
+                BMR<span>Group</span>
+            </div>
+            <div class="brand-tagline">
+                PREMIUM LIVING SPACES • TRICHY
+            </div>
+        </div>
+
+        <!-- Main Content Card -->
+        <div class="content-card">
+            <div class="text-center">
+                <!-- Loading Spinner (replaces hammer) -->
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+
+                <!-- Title -->
+                <h1 class="main-title">
+                    <span>Under Construction</span>
+                </h1>
+
+                <!-- Description -->
+                <p class="description">
+                    We're working hard to bring you something amazing. This page is currently under development and will be live soon.
+                </p>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Development Progress</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Contact Options -->
+                <div class="contact-options">
+                    <a href="tel:+919842434555" class="contact-btn">
+                        <i class="bi bi-telephone-fill"></i>
+                        Call Us
+                    </a>
+                    <a href="mailto:info@bmrgroup.com" class="contact-btn">
+                        <i class="bi bi-envelope-fill"></i>
+                        Email Us
+                    </a>
+                    <a href="https://wa.me/919842434555" class="contact-btn" target="_blank">
+                        <i class="bi bi-whatsapp"></i>
+                        WhatsApp
+                    </a>
+                    <a href="#" class="contact-btn">
+                        <i class="bi bi-calendar-check"></i>
+                        Schedule Visit
+                    </a>
+                </div>
+
+                <!-- Trust Badges -->
+                <div class="trust-section">
+                    <div class="badges">
+                        <div class="badge-item">
+                            <i class="bi bi-shield-check"></i>
+                            <span>DTCP Approved</span>
+                        </div>
+                        <div class="badge-item">
+                            <i class="bi bi-award"></i>
+                            <span>16+ Years Trust</span>
+                        </div>
+                        <div class="badge-item">
+                            <i class="bi bi-people"></i>
+                            <span>15,000+ Customers</span>
+                        </div>
+                        <div class="badge-item">
+                            <i class="bi bi-geo-alt"></i>
+                            <span>Trichy Prime Locations</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="nav-links">
+                    <a href="../index.html" class="nav-link">Home</a>
+                    <a href="../Pages/live.html" class="nav-link">Projects</a>
+                    <a href="../AboutUs/Our_team.html" class="nav-link">Our Team</a>
+                    <a href="../Pages/contact.html" class="nav-link">Contact Us</a>
+                </div>
+
+                <!-- Update Message -->
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 2rem;">
+                    <i class="bi bi-info-circle"></i>
+                    Expected launch: March 2025. We appreciate your patience.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Back button function
+        function goBack() {
+            // Check if there's a previous page in history
+            if (document.referrer) {
+                // If coming from another page, go back
+                window.history.back();
+            } else {
+                // If no previous page (direct access), go to homepage
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
