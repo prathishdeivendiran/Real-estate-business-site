@@ -22,11 +22,7 @@
   margin:0px;
 }
 
-.logo1{
-  height:auto;
-  width:120px;
-  border-radius:20px;
-}
+
 
 /* Default (Desktop & large screens) */
 .image1{
@@ -78,12 +74,7 @@
             color: #fff;
         }
         
-        .logo1 {
-            height: auto;
-            width: 120px;
-            border-radius: 20px;
-        }
-       
+     
         
         /* Button Styles */
         .btn-premium {
